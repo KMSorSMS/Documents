@@ -168,7 +168,7 @@ int main(int argc, char const* argv[]) {
     // printf("\n---------------\n");
     BiTNode treeNode;
     BiTree tree = &treeNode;
-    initTree(tree, 1, 3);
+    initTree(tree, 1, 5);
     rangeHead1(tree);
     rangeHeadClass(tree);
     rangeMid1(tree);
