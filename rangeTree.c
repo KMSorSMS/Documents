@@ -108,11 +108,12 @@ void rangeMid1(BiTree tree) {
     InitStack(stack);
     BiTree root = tree;
     while (root != NULL || !isEmpty(stack)) {
-        if (root != NULL){
-            push(stack,root);//将当前根结点入栈
+        if (root != NULL) {
+            push(stack, root);//将当前根结点入栈
             root = root->LChild;//走向左子树
-        }else {//说明没有左子树，应该访问根节点然后访问右子树
-            pop(stack,&root);
+        }
+        else {//说明没有左子树，应该访问根节点然后访问右子树
+            pop(stack, &root);
             visitNode(root);
             root = root->RChild;
         }
@@ -120,7 +121,29 @@ void rangeMid1(BiTree tree) {
     printf("\n--------------\n");
 }
 //后序遍历，非递归
-
+void rangeBehind(BiTree tree) {
+    //初始化栈
+    SeqStack stackIni;
+    SeqStack* stack = &stackIni;
+    InitStack(stack);
+    BiTree root = tree;
+    while (root != NULL || !isEmpty(stack)) {
+        if (root != NULL) {
+            push(stack, root);
+            push(stack, root);//这里和前两个遍历不一样，要入栈两次
+            root = root->LChild;
+        }
+        else {
+            pop(stack, &root);
+            BiTree isSame = NULL;//赋值为NULL很重要，对于最后一个元素，很需要isSame与root不一样，此时isSame的值为初始值
+            top(stack, &isSame);
+            //注意这里面如果是从右子树返回来的需要打印，并且root要置为NULL,对于最后一个元素要特殊判断，因为此时尽管
+            if (isSame != root) visitNode(root),root = NULL;//只有root在栈中没有重复，也就是被访问过一次的时候，才会被打印
+            else root = root->RChild;//去访问右子树 
+        }
+    }
+    printf("\n--------------\n");
+}
 //初始化满二叉树，数据随机生成
 void initTree(BiTree tree, int layer, int max) {
     if (layer >= max) {
@@ -149,5 +172,6 @@ int main(int argc, char const* argv[]) {
     rangeHead1(tree);
     rangeHeadClass(tree);
     rangeMid1(tree);
+    rangeBehind(tree);
     return 0;
 }
