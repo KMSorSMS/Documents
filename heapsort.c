@@ -26,10 +26,10 @@ void shift(int* arr, int i, int n) {
 void shiftLow2High(int* arr, int i, int n) {
     while (2 * i <= n) {//表明还有子结点
         int k = 2 * i;
-        if (k + 1 <= n && arr[k - 1] < arr[k]) {
+        if (k + 1 <= n && arr[k - 1] < arr[k]) {//选择更大的一个子节点
             k += 1;
         }
-        if (arr[i - 1] < arr[k - 1]) {
+        if (arr[i - 1] < arr[k - 1]) {//如果根结点更小，则不满足最大堆，就需要和最大的子结点交换   
             int temp = arr[i - 1];
             arr[i - 1] = arr[k - 1];
             arr[k - 1] = temp;//交换

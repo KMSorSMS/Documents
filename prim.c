@@ -1,5 +1,8 @@
 /*通过prim算法实现最小生成树*/
 #include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+
 #define MAXV 20
 #define INF 200
 typedef struct
@@ -59,6 +62,8 @@ void prim(MatGraph g) {
     return;
 }
 int main(int argc, char const* argv[]) {
+    srand((unsigned)time(NULL));
+
     //创建一个连通图
     MatGraph g;
     for (int i = 0; i < 10; i++) {
@@ -67,8 +72,8 @@ int main(int argc, char const* argv[]) {
         v.no = i;
         g.vexs[i] = v;
         for (int j = 0; j < 10; j++) {
-            g.edges[i][j] = j%4+7*i%4+1;
-            g.edges[j][i] = j%4+7*i%4+1;
+            g.edges[i][j] = rand()%20+1;
+            g.edges[j][i] = rand()%20+1;
         }
     }
     g.n = 10;
